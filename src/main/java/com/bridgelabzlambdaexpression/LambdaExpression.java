@@ -22,9 +22,16 @@ public class LambdaExpression {
             }
         };
 
+        // Show results by passing lambdas
+        showResult(10, 5, addition, "Addition");
+        showResult(10, 5, subtraction, "Subtraction");
+        showResult(10, 2, division, "Division");
 
-        System.out.println("Addition: " + addition.operate(10, 5));
-        System.out.println("Subtraction: " + subtraction.operate(10, 5));
-        System.out.println("Division: " + division.operate(10, 2));
+    }
+    // Method to display the result of a math operation
+    public static void showResult(double a, double b, MathOperation operation, String operationName) {
+        double result = operation.operate(a, b);
+        System.out.println(operationName + " result: " + result);
     }
 }
+
