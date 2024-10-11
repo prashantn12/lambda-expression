@@ -1,9 +1,12 @@
 package com.bridgelabzlambdaexpression;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 class NumberPlayList {
 
@@ -11,6 +14,15 @@ class NumberPlayList {
 
     public void addNumber(Integer number) {
         numberList.add(number);
+    }
+
+    // Refactor to use Predicate interface to filter even numbers
+    public void iterateWithPredicate(Predicate<Integer> condition) {
+        numberList.forEach(number -> {
+            if (condition.test(number)) {
+                System.out.println("Filtered number (even): " + number);
+            }
+        });
     }
 
     // Refactor to use Function interface for conversion
@@ -53,6 +65,10 @@ public class LambdaExpression {
         numberPlayList.addNumber(20);
         numberPlayList.addNumber(30);
         numberPlayList.addNumber(40);
+
+        System.out.println("Iteration with even number filtering:");
+        //lambda expression to check if the number is even
+        numberPlayList.iterateWithPredicate(number -> number % 2 == 0);
 
         System.out.println("Iteration with conversion to double:");
         // lambda expression to convert Integer to Double by doubling the value
