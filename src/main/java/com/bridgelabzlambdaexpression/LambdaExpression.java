@@ -1,37 +1,60 @@
 package com.bridgelabzlambdaexpression;
 
-@FunctionalInterface
-interface MathOperation {
-    double operate(double a, double b);
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+class NumberPlayList {
+
+    private List<Integer> numberList = new ArrayList<>();
+
+    public void addNumber(Integer number) {
+        numberList.add(number);
+    }
+
+    public void iterateUsingClass() {
+        class MyConsumer implements Consumer<Integer> {
+            public void accept(Integer number) {
+                System.out.println("Class-based iteration: " + number);
+            }
+        }
+
+        numberList.forEach(new MyConsumer());
+    }
+
+    public void iterateUsingAnonymousClass() {
+        numberList.forEach(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer number) {
+                System.out.println("Anonymous class iteration: " + number);
+            }
+        });
+    }
+
+    public void iterateUsingLambda() {
+        numberList.forEach(number -> System.out.println("Lambda iteration: " + number));
+    }
 }
 
 public class LambdaExpression {
     public static void main(String[] args) {
-        // Lambda for Addition
-        MathOperation addition = (a, b) -> a + b;
+        NumberPlayList numberPlayList = new NumberPlayList();
 
-        // Lambda for Subtraction
-        MathOperation subtraction = (a, b) -> a - b;
+        numberPlayList.addNumber(10);
+        numberPlayList.addNumber(20);
+        numberPlayList.addNumber(30);
+        numberPlayList.addNumber(40);
 
-        // Lambda for Division
-        MathOperation division = (a, b) -> {
-            if (b != 0) {
-                return a / b;
-            } else {
-                throw new ArithmeticException("Division by zero is not allowed.");
-            }
-        };
+        System.out.println("Iteration using Class:");
+        numberPlayList.iterateUsingClass();
 
-        // Show results by passing lambdas
-        showResult(10, 5, addition, "Addition");
-        showResult(10, 5, subtraction, "Subtraction");
-        showResult(10, 2, division, "Division");
+        System.out.println("\nIteration using Anonymous Class:");
+        numberPlayList.iterateUsingAnonymousClass();
+
+        System.out.println("\nIteration using Lambda:");
+        numberPlayList.iterateUsingLambda();
 
     }
-    // Method to display the result of a math operation
-    public static void showResult(double a, double b, MathOperation operation, String operationName) {
-        double result = operation.operate(a, b);
-        System.out.println(operationName + " result: " + result);
-    }
+
 }
 
