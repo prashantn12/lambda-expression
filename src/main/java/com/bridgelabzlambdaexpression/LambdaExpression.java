@@ -4,12 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+
 class NumberPlayList {
 
     private List<Integer> numberList = new ArrayList<>();
 
     public void addNumber(Integer number) {
         numberList.add(number);
+    }
+
+    // Refactor to use Function interface for conversion
+    public void iterateWithConversion(Function<Integer, Double> converter) {
+        numberList.forEach(number -> {
+            Double convertedNumber = converter.apply(number);
+            System.out.println("Converted iteration: " + convertedNumber);
+        });
     }
 
     public void iterateUsingClass() {
@@ -44,6 +53,10 @@ public class LambdaExpression {
         numberPlayList.addNumber(20);
         numberPlayList.addNumber(30);
         numberPlayList.addNumber(40);
+
+        System.out.println("Iteration with conversion to double:");
+        // lambda expression to convert Integer to Double by doubling the value
+        numberPlayList.iterateWithConversion(number -> number.doubleValue());
 
         System.out.println("Iteration using Class:");
         numberPlayList.iterateUsingClass();
